@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            display: grid;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 3em;
+        }
+
+        #btn1 {
+            background-color: lightgray;
+            width: 300px;
+            text-align: center;
+            margin: auto;
+            padding: 2em;
+            margin-top: 3em;
+            margin-bottom: 3em;
+        }
+
+        #d1 {
+            width: 500px;
+            height: 500px;
+            background-color: lightgray;
+            margin: auto;
+            margin-top: 3em;
+        }
+    </style>
+
+    <script src="libs/jquery.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#btn1").on("click", function () {
+                $("#btn1")
+                    .css("background-color", "red")
+                    .css("border") //KONIEC
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <h1>T: JQuery -<br>zdarzenia</h1>
+    <button id="btn1">DODAJ / USUN</button>
+    <div id="d1"></div>
+</body>
+
+</html>

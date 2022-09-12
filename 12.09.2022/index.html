@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        #d1 {
+            background-color: red;
+            width: 100px;
+            height: 300px;
+        }
+    </style>
+
+    <script src="libs/jquery.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // START
+            $("#btn1").on("click", function () {
+                alert("button 1")
+            })
+
+            $("#btn2").on("click", function () {
+                var prompt = confirm("podaj cos tam")
+                if (prompt == true) {
+                    console.log("TRUE")
+                }
+                else {
+                    console.log("FALSE")
+                }
+            })
+
+            $("#btn4").on("click", function () {
+                $("#d1")
+                    .css("width", "300px")
+                    .css("height", "100px")
+            })
+
+            $("#btn5").on("click", function () {
+                $("#btn4").off("click")
+            })
+            // END
+        })
+    </script>
+</head>
+
+<body>
+    <button id="btn1">BTN1</button>
+    <button id="btn2">BTN2</button>
+    <button id="btn3">BTN3</button>
+
+    <div id="d1"></div>
+
+    <button id="btn4">BTN4</button>
+    <button id="btn5">BTN5</button>
+</body>
+
+</html>
