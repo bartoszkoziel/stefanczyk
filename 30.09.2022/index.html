@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="jquery.js"></script>
+    <script src="skrypt.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 500px;
+            height: 500px;
+            background-color: lightblue;
+        }
+
+        .cube {
+            outline: 1px black solid;
+            position: absolute;
+            height: 100px;
+            width: 100px;
+        }
+
+        #ball1 {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 600px;
+            left: 0px;
+            background-color: green;
+            border-radius: 50%;
+        }
+
+        #ball2 {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            top: 600px;
+            left: 100px;
+            background-color: blue;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <button id="btnStart">START GAME</button>
+    <button id="btnNext">NEXT MOVE</button>
+    <button id="btnReset">RESET GAME</button>
+
+    <div id="ball1"></div>
+    <div id="ball2"></div>
+</body>
+
+</html>
