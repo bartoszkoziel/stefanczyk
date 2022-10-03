@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <button id="btn1">WYSLIJ</button>
+
+    <script>
+        function fetchPost() {
+
+            console.log("cos")
+
+            const body = JSON.stringify({ a: 1, b: 2, c: "fetch" }) // body czyli przesyłane na serwer dane
+
+            const headers = { "Content-Type": "application/json" } // nagłowek czyli typ danych
+
+            fetch("/api", { method: "post", body, headers }) // fetch
+                .then(response => response.json())
+                .then(
+                    data => console.log(data) // dane odpowiedzi z serwera
+                )
+
+        }
+
+        document.getElementById("btn1").onclick = function () {
+            fetchPost()
+        }
+    </script>
+</body>
+
+</html>
