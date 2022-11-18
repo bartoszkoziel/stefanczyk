@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/javascript" src="libs/three145.js"></script>
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+
+            const scene = new THREE.Scene();
+
+            const camera = new THREE.PerspectiveCamera(
+                45,
+                16 / 9,
+                0.1,
+                10000
+            );
+
+            const renderer = new THREE.WebGLRenderer();
+
+            renderer.setClearColor(0x666666);
+
+            renderer.setSize(innerWidth, innerHeight);
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+            camera.position.set(200, 200, 200)
+
+            camera.lookAt(scene.position);
+
+            camera.fov = 90;
+            camera.updateProjectionMatrix();
+
+            const axes = new THREE.AxesHelper(1000)
+            scene.add(axes)
+
+            const light = new THREE.AmbientLight(0xffffff, 10);
+            light.intensity = 2
+            scene.add(light);
+
+            const box = new THREE.BoxGeometry(150, 100, 100, 5, 5, 5);
+
+            const material1 = new THREE.MeshPhongMaterial({
+                //color: 0xffffff,
+                specular: 0xffffff,
+                shininess: 50,
+                side: THREE.DoubleSide,
+                map: new THREE.TextureLoader().load("mats/dzins.jpg"),
+            })
+
+            const cube1 = new THREE.Mesh(box, material1);
+
+            scene.add(cube1);
+
+
+            function render() {
+                requestAnimationFrame(render);
+
+                console.log("render leci")
+                cube1.rotation.y += 0.01;
+
+                renderer.render(scene, camera);
+            }
+
+
+
+            render();
+        })
+    </script>
+</body>
+
+</html>

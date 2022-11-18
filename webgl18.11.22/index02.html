@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/javascript" src="libs/three145.js"></script>
+    <script type="text/javascript">
+        window.addEventListener("load", function () {
+
+            const scene = new THREE.Scene();
+
+            const camera = new THREE.PerspectiveCamera(
+                45,
+                4 / 3,
+                0.1,
+                10000
+            );
+
+            const renderer = new THREE.WebGLRenderer();
+
+            renderer.setClearColor(0x666666);
+
+            renderer.setSize(innerWidth, innerHeight);
+
+            document.getElementById("root").appendChild(renderer.domElement);
+
+            camera.position.x = -200;
+            camera.position.y = 200;
+            camera.position.z = 200;
+
+            camera.position.set(100, 100, 100)
+
+            camera.lookAt(scene.position);
+
+            camera.fov = 90;
+            camera.updateProjectionMatrix();
+
+            const axes = new THREE.AxesHelper(1000)
+            scene.add(axes)
+
+            function render() {
+                requestAnimationFrame(render);
+
+                console.log("render leci")
+
+                renderer.render(scene, camera);
+            }
+
+            const box = new THREE.BoxGeometry(100, 100, 100, 5, 5, 5);
+            const sphere = new THREE.SphereGeometry(50, 20, 8);
+            const cone = new THREE.ConeGeometry(5, 20, 32);
+            const cylinder = new THREE.CylinderGeometry(5, 5, 20, 32);
+
+            const material1 = new THREE.MeshBasicMaterial({
+                color: 0x8888ff,
+                side: THREE.DoubleSide,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+
+            const material2 = new THREE.MeshBasicMaterial({
+                color: 0x991111,
+                side: THREE.DoubleSide,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.4
+            });
+
+
+            const cube1 = new THREE.Mesh(box, material1);
+            const sphere1 = new THREE.Mesh(sphere, material2);
+
+            scene.add(cube1);
+            scene.add(sphere1);
+
+            render();
+        })
+    </script>
+</body>
+
+</html>
