@@ -1,0 +1,48 @@
+<div class="header">
+    <a class="center" href="/filemanager">FILEMANAGER</a>
+</div>
+
+<main>
+    <div class="sidebar">
+        <div class="btnS1" id="mkdir">
+            <p>NOWY FOLDER</p>
+        </div>
+        <div class="btnS1">
+            <p>NOWY PLIK TXT</p>
+        </div>
+        <div class="btnS1">
+            <form enctype="multipart/form-data" method="POST" action="/handleUpload">
+                <input type="file" multiple required accept="image/*" name="imagetoupload">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+
+    <div class="mainbox">
+
+    </div>
+</main>
+
+
+
+
+<script>
+    document.getElementById("mkdir").onclick = function () {
+
+        let mkdirDialog = document.createElement("dialog")
+
+        let exitbutton = document.createElement("button")
+        exitbutton.innerHTML = "exit"
+        exitbutton.onclick = function () {
+            mkdirDialog.close()
+        }
+        mkdirDialog.append(exitbutton)
+
+        document.getElementById("mkdir").append(mkdirDialog)
+        mkdirDialog.showModal()
+    }
+
+
+
+
+</script>
