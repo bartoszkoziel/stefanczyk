@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <input type="range" id="skala" name="skala" min="1" max="100">
+        <label id="lbl1">cos</label>
+        <label id="lbl2">cos</label>
+        <label id="lbl3">cos</label>
+    </div>
+    <div id="root"></div>
+    <script src="three145.js"></script>
+    <script>
+        // scena 3D
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            90,    // kąt patrzenia kamery (FOV - field of view)
+            innerWidth / innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(0x666666);
+
+        renderer.setSize(innerWidth, innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        camera.position.set(400, 400, 400)
+        camera.lookAt(scene.position)
+
+        function render() {
+
+            requestAnimationFrame(render);
+            //console.log("render leci")
+
+            let skala = document.getElementById("skala").value / 100
+            document.getElementById("lbl1").innerHTML = skala
+            document.getElementById("lbl2").innerHTML = skala
+            document.getElementById("lbl3").innerHTML = skala
+
+            for (let x = 0; x < 5; x++) {
+                for (let z = 0; z < 5; z++) {
+                    for (let y = 0; y < 5; y++) {
+                        let cube = scene.getObjectByName("kostka_" + x + "_" + z + "_" + y)
+                        cube.scale.set(skala, skala, skala)
+                        console.log(skala);
+                    }
+                }
+            }
+
+
+
+            renderer.render(scene, camera);
+        }
+
+        const geometry = new THREE.BoxGeometry(50, 50, 50);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x4cb066,
+            side: THREE.DoubleSide,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.8
+        })
+
+        for (let x = 0; x < 5; x++) {
+            for (let z = 0; z < 5; z++) {
+                for (let y = 0; y < 5; y++) {
+                    let cube = new THREE.Mesh(geometry, material)
+                    cube.position.x = 70 * x
+                    cube.position.z = 70 * z
+                    cube.position.y = 70 * y
+                    cube.name = "kostka_" + x + "_" + z + "_" + y
+                    scene.add(cube);
+                }
+            }
+        }
+
+        // document.getElementById("skala").onchange = function () {
+        //     for (let x = 0; x < 5; x++) {
+        //         for (let z = 0; z < 5; z++) {
+        //             for (let y = 0; y < 5; y++) {
+        //                 let cube = scene.getObjectByName("kostka_" + x + "_" + z + "_" + y)
+        //                 cube.scale.set(skala.value / 100, skala.value / 100, skala.value / 100)
+        //                 console.log(skala.value / 100);
+        //             }
+        //         }
+        //     }
+        // }
+
+
+        render();
+    </script>
+</body>
+
+</html>

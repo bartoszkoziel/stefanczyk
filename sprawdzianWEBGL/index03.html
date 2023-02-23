@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <input type="range" id="range1" name="skala12313" min="1" max="100"><br>
+        <input type="range" id="range2" name="skala123" min="50" max="150">
+        <div id="cubepos"></div>
+        <div id="objpos"></div>
+    </div>
+    <div id="root"></div>
+    <script src="three145.js"></script>
+    <script>
+        // scena 3D
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            90,    // kąt patrzenia kamery (FOV - field of view)
+            innerWidth / innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(0x666666);
+
+        renderer.setSize(innerWidth, innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        camera.position.set(300, 300, 300)
+        camera.lookAt(scene.position)
+
+
+
+
+        class Shapes {
+
+            init() {
+                range1 = document.getElementById("range1")
+                range2 = document.getElementById("range2")
+
+                let cube1 = new THREE.Mesh(geometry, material)
+                cube1.position.z = 60
+                cube1.name = "kostka1"
+
+                let cube2 = new THREE.Mesh(geometry, material)
+                cube2.position.x = 120
+                cube2.name = "kostka2"
+
+                let cube3 = new THREE.Mesh(geometry, material)
+                cube3.position.x = 0
+                cube3.name = "kostka3"
+
+                const obj = new THREE.Object3D()
+                obj.add(cube1);
+                obj.add(cube2);
+                obj.add(cube3);
+
+                scene.add(obj)
+            }
+        }
+
+        let shapes = Shapes.init()
+
+        function render() {
+
+            requestAnimationFrame(render);
+
+            obj.position.y = range1.value
+            cube2.position.x = range2.value
+
+
+
+
+            renderer.render(scene, camera);
+        }
+
+        const geometry = new THREE.BoxGeometry(50, 50, 50);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x8888ff,
+            side: THREE.DoubleSide,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.8
+        })
+
+
+
+
+        render();
+    </script>
+</body>
+
+</html>

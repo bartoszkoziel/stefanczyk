@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: 0;
+            overflow: hidden;
+        }
+
+        #container {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="rot1">rot1: </div>
+        <div id="rot2">rot2: </div>
+        <div id="rot3">rot3: </div>
+    </div>
+    <div id="root"></div>
+    <script src="three145.js"></script>
+    <script>
+        // scena 3D
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(
+            90,    // kąt patrzenia kamery (FOV - field of view)
+            innerWidth / innerHeight,    // proporcje widoku, powinny odpowiadać proporcjom ekranu przeglądarki użytkownika
+            0.1,    // minimalna renderowana odległość
+            10000    // maksymalna renderowana odległość od kamery
+        );
+
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setClearColor(0x666666);
+
+        renderer.setSize(innerWidth, innerHeight);
+
+        document.getElementById("root").appendChild(renderer.domElement);
+
+        const axes = new THREE.AxesHelper(1000)
+        scene.add(axes)
+
+        camera.position.set(300, 300, 300)
+        camera.lookAt(scene.position)
+
+        var doobrotu = ""
+
+        function render() {
+
+            requestAnimationFrame(render);
+            //console.log("render leci")
+
+            if (doobrotu != "") {
+                let kostka = scene.getObjectByName(doobrotu)
+                kostka.rotation.y += 0.01
+            }
+
+            let rot1 = document.getElementById("rot1")
+            let rot2 = document.getElementById("rot2")
+            let rot3 = document.getElementById("rot3")
+
+            rot1.innerHTML = "rot1: " + scene.getObjectByName("kostka0").rotation.y * (180 / 3.141)
+            rot2.innerHTML = "rot2: " + scene.getObjectByName("kostka1").rotation.y * (180 / 3.141)
+            rot3.innerHTML = "rot3: " + scene.getObjectByName("kostka2").rotation.y * (180 / 3.141)
+
+
+
+            renderer.render(scene, camera);
+        }
+
+        const geometry = new THREE.BoxGeometry(100, 100, 100);
+        const material = new THREE.MeshBasicMaterial({
+            color: 0x8888ff,
+            side: THREE.DoubleSide,
+            wireframe: false,
+            transparent: true,
+            opacity: 0.8
+        })
+
+        for (let i = 0; i < 3; i++) {
+            let cube = new THREE.Mesh(geometry, material)
+            cube.position.y = 120 * i
+            cube.name = "kostka" + i
+            scene.add(cube);
+        }
+
+        const raycaster = new THREE.Raycaster(); // obiekt Raycastera symulujący "rzucanie" promieni
+        const mouseVector = new THREE.Vector2() // ten wektor czyli pozycja w przestrzeni 2D na ekranie(x,y) wykorzystany będzie do określenie pozycji myszy na ekranie, a potem przeliczenia na pozycje 3D
+
+        window.addEventListener("mousedown", (e) => {
+            mouseVector.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseVector.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouseVector, camera);
+            const intersects = raycaster.intersectObjects(scene.children);
+            if (intersects.length > 0) {
+
+                // zerowy w tablicy czyli najbliższy kamery obiekt to ten, którego potrzebujemy:
+
+                let kostka = scene.getObjectByName(intersects[0].object.name)
+                doobrotu = kostka.name
+                console.log(doobrotu)
+
+
+            }
+        });
+
+        render();
+    </script>
+</body>
+
+</html>
