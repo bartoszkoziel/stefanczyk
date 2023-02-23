@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        .td_klasa {
+            height: 120px;
+            width: 120px;
+            border-radius: 5rem;
+        }
+
+        .tdjeden {
+            height: 48px;
+            width: 48px;
+            border-radius: 3rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+    <script>
+        let array = [
+            { a: "red", b: "green", c: "blue", d: "black", e: "orange" },
+            { a: "orange", b: "black", c: "blue", d: "green", e: "red" },
+            { a: "red", b: "green", c: "blue", d: "black", e: "orange" },
+            { a: "orange", b: "black", c: "blue", d: "green", e: "red" },
+            { a: "red", b: "green", c: "blue", d: "black", e: "orange" },
+            { a: "red", b: "green", c: "blue", d: "black", e: "orange" }
+        ]
+        $(document).ready(function () {
+            let tabelka = $("<table>")
+            $("#container").append(tabelka);
+            for (let i = 0; i < array.length; i++) {
+                let zmienna = "zmienna" + i
+                zmienna = $("<tr>")
+                tabelka.append(zmienna)
+                Object.entries(array[i]).forEach(function ([literka, kolor]) {
+                    let zmienna2 = "zmienna2" + i + kolor + literka
+                    zmienna2 = $("<td>")
+                    $(zmienna2).addClass("td_klasa")
+                    $(zmienna2).css("background-color", kolor)
+                    $(zmienna2).html('<div style= "display: flex; align-items: center; justify-content: center; color: white">' + kolor + "</div>")
+                    zmienna.append(zmienna2)
+                    $(zmienna2).on("click", function () {
+                        $(zmienna2).css("background-color", "white")
+                        let tabelka2 = $("<table>")
+                        $(zmienna2).append(tabelka2)
+
+
+
+                        let tr1 = "tr1" + i + literka + kolor
+                        tr1 = $("<tr>")
+                        let tr2 = "tr2" + i + literka + kolor
+                        tr2 = $("<tr>")
+                        let td1 = "td1" + i + literka + kolor
+                        td1 = $("<td>")
+                        let td2 = "td2" + i + literka + kolor
+                        td2 = $("<td>")
+                        let td3 = "td3" + i + literka + kolor
+                        td3 = $("<td>")
+                        let td4 = "td4" + i + literka + kolor
+                        td4 = $("<td>")
+                        $(td1).addClass("tdjeden")
+                        $(td2).addClass("tdjeden")
+                        $(td3).addClass("tdjeden")
+                        $(td4).addClass("tdjeden")
+                        $(td1).css("background-color", kolor)
+                        $(td1).html('<div style= "display: flex; align-items: center; justify-content: center; color: white">' + kolor + "</div>")
+                        $(td2).css("background-color", kolor)
+                        $(td2).html('<div style= "display: flex; align-items: center; justify-content: center; color: white">' + kolor + "</div>")
+                        $(td3).css("background-color", kolor)
+                        $(td3).html('<div style= "display: flex; align-items: center; justify-content: center; color: white">' + kolor + "</div>")
+                        $(td4).css("background-color", kolor)
+                        $(td4).html('<div style= "display: flex; align-items: center; justify-content: center; color: white">' + kolor + "</div>")
+                        $(tabelka2).append(tr1)
+                        $(tr1).append(td1)
+                        $(tr1).append(td2)
+                        $(tabelka2).append(tr2)
+                        $(tr2).append(td3)
+                        $(tr2).append(td4)
+                    })
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>
